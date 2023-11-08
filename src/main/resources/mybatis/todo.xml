@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kotlin.swagger.todo.mapper.TodoMapper">
+    <select id="selectTodos" resultType="com.kotlin.swagger.todo.dto.Todo">
+        SELECT *
+        FROM todo
+    </select>
+
+    <select id="findById" resultType="com.kotlin.swagger.todo.dto.Todo">
+        SELECT *
+        FROM todo
+        <include refid="findByIdWhere" />
+    </select>
+
+    <sql id="findByIdWhere">
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+        </where>
+    </sql>
+
+    <insert id="insertTodo" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.kotlin.swagger.todo.dto.Todo">
+        INSERT INTO todo (title, description, completed) VALUES (#{title}, #{description}, #{completed})
+    </insert>
+
+    <update id="updateTodo">
+        update TODO
+        set TITLE = #{title}
+            , DESCRIPTION = #{description}
+            , COMPLETED = #{completed}
+        <include refid="findByIdWhere" />
+    </update>
+
+    <delete id="deleteTodo">
+        DELETE FROM todo
+        <include refid="findByIdWhere" />
+    </delete>
+</mapper>
