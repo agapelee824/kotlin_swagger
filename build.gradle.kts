@@ -27,6 +27,7 @@ dependencies {
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
+	implementation("org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1")
 	runtimeOnly("com.mysql:mysql-connector-j")
 }
