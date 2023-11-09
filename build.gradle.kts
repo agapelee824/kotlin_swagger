@@ -30,6 +30,11 @@ dependencies {
 	implementation("org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16")
 	implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.1")
 	runtimeOnly("com.mysql:mysql-connector-j")
+
+	implementation("org.springframework.boot:spring-boot-starter-security")
+
+	//implementation("javax.servlet:jstl")
+	//implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
 }
 
 allOpen {
