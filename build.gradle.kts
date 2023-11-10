@@ -32,9 +32,10 @@ dependencies {
 	runtimeOnly("com.mysql:mysql-connector-j")
 
 	implementation("org.springframework.boot:spring-boot-starter-security")
-
-	//implementation("javax.servlet:jstl")
-	//implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
+	implementation("org.springframework.security:spring-security-test")
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 }
 
 allOpen {

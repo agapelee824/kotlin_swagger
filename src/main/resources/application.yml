@@ -9,10 +9,9 @@ spring:
     url: jdbc:log4jdbc:mysql://localhost:3306/kotlin
     username: root
     password: 1234
-#  mvc:
-#    view:
-#      prefix: /WEB-INF/views/
-#      suffix: .jsp
+  security:
+    user:
+      password: 1
 
 mybatis:
   configuration:

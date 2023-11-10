@@ -5,4 +5,10 @@
         insert into MEMBER (LOGIN_ID, PASSWORD, NAME, BIRTH_DATE, GENDER, EMAIL)
         values (#{loginId}, #{password}, #{name}, #{birthDate}, #{gender}, #{email})
     </insert>
+
+    <select id="findByLoginId" resultType="com.kotlin.swagger.member.dto.Member">
+        select *
+        from MEMBER
+        where LOGIN_ID = #{loginId}
+    </select>
 </mapper>
