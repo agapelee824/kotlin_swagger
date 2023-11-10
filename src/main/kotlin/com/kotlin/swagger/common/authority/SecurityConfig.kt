@@ -15,9 +15,6 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 @Configuration
 class SecurityConfig
-//class WebSecurityConfig(
-//    private val userDetailsService: UserDetailsServiceImpl,
-//    private val jwtFilter: JwtFilter): WebSecurityConfigurerAdapter()
 {
     @Bean
     fun filterChain(http: HttpSecurity): SecurityFilterChain {
@@ -37,8 +34,6 @@ class SecurityConfig
                     .requestMatchers("/api/v3/**", "/health", "/swagger-ui/**", "/swagger/**", "/swagger-resources/**"
                         , "/webjars/**", "/v3/api-docs/**").permitAll()
                     .anyRequest().authenticated()
-//                    .and()
-//                    .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
             }
 
         // login 설정
@@ -61,15 +56,4 @@ class SecurityConfig
 
         return http.build()
     }
-
-//    @Throws(Exception::class)
-//    protected fun configure(auth: AuthenticationManagerBuilder) {
-////        auth.userDetailsService(userDetailsService);
-//        auth.authenticationProvider(authenticationProvider())
-//    }
-//
-//    @Bean
-//    fun authenticationProvider(): AuthenticationProvider {
-//        return AuthProvider()
-//    }
 }
