@@ -49,12 +49,5 @@ class MemberController(private val memberService: MemberService) {
 
     @Operation(summary = "내 정보 보기", description = "내 정보 보기")
     @GetMapping("/info")
-//    fun searchMyInfo(/*authentication: Authentication*/@AuthenticationPrincipal loginId:String): BaseResponse<Member> {
-////        val userId = authentication.name
-////        log.info("authentication:{}", authentication.name)
-////        val userId : Long = SessionUtils.currentUserNo
-//        val response = memberService.getMemberInfo(loginId)
-//        return BaseResponse(data = response)
-//    }
     fun searchMyInfo(@AuthenticationPrincipal user: User) = ApiResponse.success(memberService.getMemberInfo(user.username))
 }
