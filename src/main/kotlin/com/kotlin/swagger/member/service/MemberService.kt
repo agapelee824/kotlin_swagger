@@ -21,9 +21,11 @@ class MemberService(private val memberMapper: MemberMapper,
 //
 //            return response
             return true;
-        } else {
+        } else if(req.loginId != "admin") {
             throw IllegalArgumentException("이미 사용중인 아이디입니다.")
         }
+
+        return false;
     }
 
     fun login(req: Member): SignInResponse {
@@ -31,9 +33,9 @@ class MemberService(private val memberMapper: MemberMapper,
             ?.takeIf { encoder.matches(req.password, it.password) }	// 암호화된 비밀번호와 비교하도록 수정
             ?: throw IllegalArgumentException("아이디 또는 비밀번호가 일치하지 않습니다.")
 
-//        val token = tokenProvider.createToken("${member.id}:${member.type}")
-        val token = tokenProvider.createToken("${member.id}:0")
-        return SignInResponse(member.name, /*member.type, */token)
+        val token = tokenProvider.createToken("${member.id}:${member.type}")
+//        val token = tokenProvider.createToken("${member.id}:0")
+        return SignInResponse(member.name, member.type, token)
     }
 
     fun getMemberInfo(id: String): Member? = memberMapper.findById(id.toLong())

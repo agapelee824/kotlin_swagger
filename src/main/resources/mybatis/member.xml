@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kotlin.swagger.member.mapper.MemberMapper">
     <insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="id" parameterType="com.kotlin.swagger.member.dto.Member">
-        insert into MEMBER (LOGIN_ID, PASSWORD, NAME, BIRTH_DATE, GENDER, EMAIL)
-        values (#{loginId}, #{password}, #{name}, #{birthDate}, #{gender}, #{email})
+        insert into MEMBER (LOGIN_ID, PASSWORD, NAME, BIRTH_DATE, GENDER, EMAIL, TYPE)
+        values (#{loginId}, #{password}, #{name}, #{birthDate}, #{gender}, #{email}, #{type})
     </insert>
 
     <select id="findByLoginId" resultType="com.kotlin.swagger.member.dto.Member">
