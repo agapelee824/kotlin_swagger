@@ -11,4 +11,10 @@
         from MEMBER
         where LOGIN_ID = #{loginId}
     </select>
+
+    <select id="findById" resultType="com.kotlin.swagger.member.dto.Member">
+        select *
+        from MEMBER
+        where ID = #{id}
+    </select>
 </mapper>

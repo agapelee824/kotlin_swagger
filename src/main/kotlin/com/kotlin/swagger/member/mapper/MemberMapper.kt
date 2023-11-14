@@ -7,5 +7,7 @@ import org.apache.ibatis.annotations.Mapper
 interface MemberMapper {
     fun insertMember(member: Member): Long
 
-    fun findByLoginId(loginId: String?): Member
+    fun findByLoginId(loginId: String?): Member?
+
+    fun findById(id: Long?): Member?
 }
