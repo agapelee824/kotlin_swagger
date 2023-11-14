@@ -1,8 +1,8 @@
 package com.kotlin.swagger.member.controller
 
 import com.kotlin.swagger.common.configuration.LoggerDelegator
+import com.kotlin.swagger.common.dto.ApiResponse
 import com.kotlin.swagger.common.dto.BaseResponse
-import com.kotlin.swagger.member.dto.ApiResponse
 import com.kotlin.swagger.member.dto.Member
 import com.kotlin.swagger.member.service.MemberService
 import io.swagger.v3.oas.annotations.Operation

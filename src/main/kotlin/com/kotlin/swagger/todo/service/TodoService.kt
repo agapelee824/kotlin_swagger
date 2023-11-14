@@ -1,6 +1,8 @@
 package com.kotlin.swagger.todo.service
 
 //import com.kotlin.swagger.todo.dto.Todo
+import com.kotlin.swagger.common.dto.ApiResponse
+import com.kotlin.swagger.todo.dto.TodoResponse
 import com.kotlin.swagger.todo.entity.Todo
 import com.kotlin.swagger.todo.repository.TodoRepository
 import jakarta.transaction.Transactional
@@ -10,18 +12,21 @@ import org.springframework.stereotype.Service
 
 @Service
 class TodoService(/*private val todoMapper: TodoMapper*/
-                  private val todoRepository: TodoRepository
+                  private val todoRepository: TodoRepository,
+                  private val todoService: TodoRepository
 ) {
 //    fun getTodos(): List<Todo> = todoMapper.selectTodos()
 
 //    fun getTodoInfo(id: Long): Todo = todoMapper.findById(id)
+    @Transactional
+    fun getTodoInfo(id: Long) =
+//    todoRepository.findById(id)
+    todoRepository.findByIdOrNull(id)?.let {
+        TodoResponse.from(
+            it
+        )
+    }
 
-//    fun createTodo(todo: Todo): Long? {
-//        val id = todoMapper.insertTodo(todo)
-//        val todoResponse = todo.id
-//
-//        return todoResponse
-//    }
     @Transactional
     fun createTodo(request: Todo) = Todo.from(
         todoRepository.saveAndFlush(request)

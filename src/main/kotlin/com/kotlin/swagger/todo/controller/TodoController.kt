@@ -1,6 +1,7 @@
 package com.kotlin.swagger.todo.controller
 
 import com.kotlin.swagger.common.configuration.LoggerDelegator
+import com.kotlin.swagger.common.dto.ApiResponse
 import com.kotlin.swagger.common.dto.BaseResponse
 //import com.kotlin.swagger.todo.dto.Todo
 import com.kotlin.swagger.todo.entity.Todo
@@ -10,8 +11,6 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.media.Schema
-import io.swagger.v3.oas.annotations.responses.ApiResponse
-import io.swagger.v3.oas.annotations.responses.ApiResponses
 import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
 import org.springframework.web.ErrorResponse
@@ -27,9 +26,9 @@ class TodoController(private val todoService: TodoService) {
 //    @GetMapping("/list")
 //    fun getTodos(): List<Todo> = todoService.getTodos()
 
-//    @Operation(summary = "Todo 정보", description = "파라미터로 받은 id의 Todo 정보를 출력한다.")
-//    @Parameter(name = "id", description = "Todo의 id")
-//    @GetMapping("/info/{id}")
+    @Operation(summary = "Todo 정보", description = "파라미터로 받은 id의 Todo 정보를 출력한다.")
+    @Parameter(name = "id", description = "Todo의 id")
+    @GetMapping("/info/{id}")
 //    fun getTodoInfo(@PathVariable id: Long): BaseResponse<Todo>{
 //        log.info("id: {}", id)
 //        val response = todoService.getTodoInfo(id)
@@ -38,6 +37,7 @@ class TodoController(private val todoService: TodoService) {
 ////            .ok()
 ////            .build()
 //    }//Todo = todoService.getTodoInfo(id)
+    fun getTodoInfo(@PathVariable id: Long) = ApiResponse.success(todoService.getTodoInfo(id))
 
     @PostMapping("/add")
     fun createTodo(@RequestBody todo:Todo): ResponseEntity<Any> {
