@@ -2,6 +2,7 @@ package com.kotlin.swagger.board.controller
 
 import com.kotlin.swagger.board.dto.Board
 import com.kotlin.swagger.board.service.BoardService
+import com.kotlin.swagger.common.configuration.LoggerDelegator
 import com.kotlin.swagger.common.dto.BaseResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @Tag(name = "게시판 API", description = "게시판 API")
 class BoardController(private val boardService: BoardService) {
+    val log by LoggerDelegator()
+
     @Operation(summary = "게시판 작성", description = "게시판 작성")
-    @Parameter(name = "num", description = "게시판 번호")
+    @Parameter(name = "board", description = "게시판 객체")
     @PostMapping("/create")
     fun create(@RequestBody board: Board): BaseResponse<Any> {
 //        val dao = BoardDAO(conn)
@@ -33,6 +36,7 @@ class BoardController(private val boardService: BoardService) {
 //        dao.insertData(f)
 
         /////////////////////////////
+        log.info("create board!!!")
         board.num = boardService.getMaxNum() + 1
 
         val result = boardService.inserBoard(board)
