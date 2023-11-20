@@ -26,7 +26,7 @@ class SecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilte
         http
             .authorizeHttpRequests { authorize ->
                 authorize
-                    .requestMatchers("/signUp").permitAll()
+                    .requestMatchers("/signUp", "/logout").permitAll()
                     .requestMatchers("/api/member/login").permitAll()
 //                    .requestMatchers("/auth").permitAll()
 //                    .requestMatchers("/api/**").permitAll()
@@ -46,9 +46,10 @@ class SecurityConfig(private val jwtAuthenticationFilter: JwtAuthenticationFilte
 
         // logout 설정
         http
-            .logout()
-            .logoutUrl("/logout")
-            .logoutSuccessUrl("/");	// logout에 성공하면 /로 redirect
+            .logout() // 로그아웃 기능 작동함
+            .logoutUrl("/logout") // 로그아웃 처리 URL, default: /logout, 원칙적으로 post 방식만 지원
+            .logoutSuccessUrl("/login")	// logout에 성공하면 redirect
+//            .logoutSuccessHandler(customesuccessLogoutHandler)
 
         http
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) } // 세션을 사용하지 않으므로 STATELESS

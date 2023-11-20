@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.http.ResponseEntity
 import org.springframework.web.ErrorResponse
 import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RequestMapping("/api/todo")
 @RestController
@@ -22,23 +23,16 @@ import org.springframework.web.bind.annotation.*
 class TodoController(private val todoService: TodoService) {
     val log by LoggerDelegator()
 
-//    @Operation(summary = "Todo 목록", description = "Todo 목록을 출력한다.")
-//    @GetMapping("/list")
-//    fun getTodos(): List<Todo> = todoService.getTodos()
+    @Operation(summary = "Todo 목록", description = "Todo 목록을 출력한다.")
+    @GetMapping("/list")
+    fun getTodos(): List<Todo> = todoService.getTodos()
 
     @Operation(summary = "Todo 정보", description = "파라미터로 받은 id의 Todo 정보를 출력한다.")
     @Parameter(name = "id", description = "Todo의 id")
     @GetMapping("/info/{id}")
-//    fun getTodoInfo(@PathVariable id: Long): BaseResponse<Todo>{
-//        log.info("id: {}", id)
-//        val response = todoService.getTodoInfo(id)
-//        return BaseResponse(data = response)
-////        return ResponseEntity
-////            .ok()
-////            .build()
-//    }//Todo = todoService.getTodoInfo(id)
     fun getTodoInfo(@PathVariable id: Long) = ApiResponse.success(todoService.getTodoInfo(id))
 
+    @Operation(summary = "Todo 추가", description = "Todo 등록")
     @PostMapping("/add")
     fun createTodo(@RequestBody todo:Todo): ResponseEntity<Any> {
         val id = todoService.createTodo(todo)
@@ -47,27 +41,15 @@ class TodoController(private val todoService: TodoService) {
             .body(true)
     }
 
-//    @PutMapping("/update")
-//    fun deleteTodo(@RequestBody todo:Todo): ResponseEntity<Any>{
-//        //if (todoService.getTodoInfo(id) != null) {
-//        todoService.updateTodo(todo)
-//        return ResponseEntity
-//            .ok()
-//            .build()
-//        //}
-//        //throw NotFoundException("todo", "todo id: $id")
-//    }
+    @Operation(summary = "Todo 수정", description = "Todo 수정")
+    @PutMapping("/update")
+    fun updateTodo(@RequestBody todo:Todo) =
+        ApiResponse.success(todoService.updateTodo(todo))
 
-//    @DeleteMapping("/delete/{id}")
-//    fun deleteTodo(@PathVariable id: Long): ResponseEntity<Any>{
-//        //if (todoService.getTodoInfo(id) != null) {
-//            todoService.deleteTodo(id)
-//            return ResponseEntity
-//                .ok()
-//                .build()
-//        //}
-//        //throw NotFoundException("todo", "todo id: $id")
-//    }
+    @Operation(summary = "Todo 삭제", description = "Todo 삭제")
+    @DeleteMapping("/delete/{id}")
+    fun deleteTodo(@PathVariable id: Long) =
+        ApiResponse.success(todoService.deleteTodo(id))
 
     @Hidden
     @GetMapping("/ignore")

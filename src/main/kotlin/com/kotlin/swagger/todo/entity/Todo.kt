@@ -1,6 +1,7 @@
 package com.kotlin.swagger.todo.entity
 
 import jakarta.persistence.*
+import org.springframework.security.crypto.password.PasswordEncoder
 import java.util.*
 
 @Entity
@@ -20,5 +21,15 @@ class Todo(
             description = todo.description,
             completed = todo.completed
         )
+    }
+
+    fun update(newTodo: Todo) {
+//        this.password = newMember.newPassword
+//            ?.takeIf { it.isNotBlank() }
+//            ?.let { encoder.encode(it) }
+//            ?: this.password
+        this.title = newTodo.title
+        this.description = newTodo.description
+        this.completed =  newTodo.completed
     }
 }

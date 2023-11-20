@@ -35,3 +35,23 @@ data class TodoResponse(
         )
     }
 }
+
+data class TodoUpdateResponse(
+    @Schema(description = "할일 수정 성공 여부", example = "true")
+    val result: Boolean,
+    @Schema(description = "제목")
+    val title: String? = "",
+    @Schema(description = "설명")
+    val description: String? = "",
+    @Schema(description = "완료여부")
+    val completed: Boolean? = false
+) {
+    companion object {
+        fun of(result: Boolean, todo: Todo) = TodoUpdateResponse(
+            result = result,
+            title = todo.title,
+            description = todo.description,
+            completed = todo.completed
+        )
+    }
+}

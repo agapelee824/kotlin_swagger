@@ -2,6 +2,7 @@ package com.kotlin.swagger.common.security
 
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import jakarta.xml.bind.DatatypeConverter
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.PropertySource
 import org.springframework.stereotype.Service
@@ -10,7 +11,9 @@ import java.time.Instant
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import java.util.*
+import javax.crypto.Cipher.SECRET_KEY
 import javax.crypto.spec.SecretKeySpec
+
 
 @PropertySource("classpath:jwt.yml")
 @Service
@@ -36,4 +39,25 @@ class TokenProvider(
         .parseClaimsJws(token)
         .body
         .subject
+
+    // 토큰 해독
+//    @Override
+//    fun getSubject(token: String): String? {
+//        val claims = Jwts.parser()
+//            .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+//            .parseClaimsJws(token).body
+//        return claims.subject
+//    }
+
+//    @Override
+//    fun isUsable(jwt: String?): Boolean {
+//        return try {
+//            val claims = Jwts.parser()
+//                .setSigningKey(DatatypeConverter.parseBase64Binary(secretKey))
+//                .parseClaimsJws(jwt).body
+//            true
+//        } catch (e: Exception) {
+//            throw UnauthorizedException()
+//        }
+//    }
 }
