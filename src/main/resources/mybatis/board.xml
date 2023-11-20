@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kotlin.swagger.board.mapper.BoardMapper">
+    <select id="getMaxNum" resultType="Integer">
+        select IFNULL(MAX(num),0)
+        from BOARD
+    </select>
+
+    <insert id="inserBoard" parameterType="com.kotlin.swagger.board.dto.Board">
+        insert into BOARD (num,name,pwd,email,subject,content,ip_addr,hit_count,created)
+        values (#{num}, #{name}, #{pwd}, #{email}, #{subject}, #{content}, #{ipAddr}, #{hitCount}, SYSDATE())
+    </insert>
+</mapper>
