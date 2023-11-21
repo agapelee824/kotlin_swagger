@@ -24,3 +24,12 @@ data class Board(
     var created: String? = "",
     var hitCount: Int? = 0
 )
+
+@Schema(description = "게시판 리스트 DTO")
+data class BoardListReq(
+    var pageNum: String? = "",
+    var searchKey: String = "",
+    var searchValue: String = "",
+
+    var method: String? = ""
+)

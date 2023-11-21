@@ -8,4 +8,6 @@ interface BoardMapper {
     fun getMaxNum():  Int
 
     fun inserBoard(board: Board): Long
+
+    fun getLists(searchKey: String, searchValue: String): List<Board>?
 }

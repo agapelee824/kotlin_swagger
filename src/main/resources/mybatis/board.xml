@@ -10,4 +10,17 @@
         insert into BOARD (num,name,pwd,email,subject,content,ip_addr,hit_count,created)
         values (#{num}, #{name}, #{pwd}, #{email}, #{subject}, #{content}, #{ipAddr}, #{hitCount}, SYSDATE())
     </insert>
+
+    <select id="getLists" resultType="com.kotlin.swagger.board.dto.Board">
+        select data.* from (
+            select num,name,subject,hit_count,DATE_FORMAT(created,'%Y-%m-%d') created
+            from BOARD
+            where
+            <if test='searchKey == "subject"'>subject</if>
+            <if test='searchKey == "name"'>name</if>
+            <if test='searchKey == "content"'>content</if>
+            like concat('%', #{searchValue}, '%')
+            order by num desc
+        ) data
+    </select>
 </mapper>

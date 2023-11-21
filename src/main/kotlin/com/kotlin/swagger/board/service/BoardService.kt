@@ -15,4 +15,9 @@ class BoardService(private val boardMapper: BoardMapper) {
         val result = boardMapper.inserBoard(req)
         return result
     }
+
+    fun getLists(searchKey: String, searchValue: String): List<Board>? {
+        val result = boardMapper.getLists(searchKey, searchValue)
+        return result
+    }
 }
