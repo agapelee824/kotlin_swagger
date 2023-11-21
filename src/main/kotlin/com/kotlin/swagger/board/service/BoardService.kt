@@ -20,4 +20,14 @@ class BoardService(private val boardMapper: BoardMapper) {
         val result = boardMapper.getLists(searchKey, searchValue)
         return result
     }
+
+    fun getReadData(num: Int): Board? {
+        val result = boardMapper.getReadData(num)
+        return result
+    }
+
+    fun updateHitCount(num: Int): Long {
+        val result = boardMapper.updateHitCount(num)
+        return result
+    }
 }

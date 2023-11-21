@@ -10,4 +10,8 @@ interface BoardMapper {
     fun inserBoard(board: Board): Long
 
     fun getLists(searchKey: String, searchValue: String): List<Board>?
+
+    fun getReadData(num: Int): Board?
+
+    fun updateHitCount(num: Int): Long
 }

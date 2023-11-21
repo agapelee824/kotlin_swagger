@@ -23,4 +23,16 @@
             order by num desc
         ) data
     </select>
+
+    <select id="getReadData" resultType="com.kotlin.swagger.board.dto.Board">
+        select num,name,pwd,email,subject,content,ip_Addr,hit_Count,created
+        from BOARD
+        where num = #{num}
+    </select>
+
+    <update id="updateHitCount">
+        update BOARD
+        set hit_count = hit_count + 1
+        where num = #{num}
+    </update>
 </mapper>

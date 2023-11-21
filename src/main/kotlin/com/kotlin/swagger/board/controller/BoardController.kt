@@ -149,7 +149,62 @@ class BoardController(private val boardService: BoardService) {
 //        return mapping.findForward("list"); */
 
         /////
-        val result = BaseResponse(data = lists)
-        return BaseResponse(data = result)
+//        val result = BaseResponse(data = lists)
+        return BaseResponse(data = lists)
+    }
+
+    @Operation(summary = "게시판 글 보기", description = "")
+    @GetMapping("/article")
+    fun article(num: Int): BaseResponse<Any> {
+//        val num: Int = number
+//        String pageNum = request.getParameter("pageNum");
+
+//        String searchKey = request.getParameter("searchKey");
+//        String searchValue = request.getParameter("searchValue");
+
+//        // 값이 있으면
+//        if(searchValue != null) {
+//            searchValue = URLDecoder.decode(searchValue, "UTF-8");
+//        }
+
+        //게시물번호(프라이머리키) 조회수 증가
+        boardService.updateHitCount(num)
+
+        // ----------------------------------------------
+        // 하나의 데이터 읽어온다
+        // setAttribute("dto",dto);
+        val dto: Board? = boardService.getReadData(num);
+//        if(dto == null) {
+////            return mapping.findForward("list");
+//        }
+
+//        // 라인수
+//        // setAttribute("line",lineSu);
+//        int lineSu = dto.getContent().split("\n").length;
+//
+//        dto.setContent(dto.getContent().replace("\n", "<br/>"));
+//
+//        // 밑에 몇번째 게시물인지
+//        String param = "pageNum=" + pageNum;
+//
+//        if(searchValue != null && !searchValue.equals("")) {
+//
+//            //검색을 했다는거
+//            param += "&searchKey=" + searchKey;
+//            // 인코더 시켜서 보낸다
+//            param += "&searchValue=" + URLEncoder.encode(searchValue, "UTF-8");
+//
+//        }
+//
+//        // 게시물 누르면 데이터가 보여지게 위해서 데이터를 넘김(setAttribute)
+//
+//        // 값을 가지고 넘어가는 변수는 param을 쓸수없다
+//        // param은 이미 내부에 변수를 쓰고있다.
+//        request.setAttribute("dto", dto);
+//        request.setAttribute("params", param);
+//        request.setAttribute("linSu", lineSu);
+//        request.setAttribute("pageNum", pageNum);
+
+        return BaseResponse(data = dto)
     }
 }
