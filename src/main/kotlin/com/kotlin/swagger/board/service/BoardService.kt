@@ -30,4 +30,14 @@ class BoardService(private val boardMapper: BoardMapper) {
         val result = boardMapper.updateHitCount(num)
         return result
     }
+
+    fun updateData(board: Board): Long {
+        val result = boardMapper.updateData(board)
+        return result
+    }
+
+    fun deleteData(num: Int): Long {
+        val result = boardMapper.deleteData(num)
+        return result
+    }
 }

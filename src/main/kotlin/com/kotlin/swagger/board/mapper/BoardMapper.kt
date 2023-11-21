@@ -14,4 +14,8 @@ interface BoardMapper {
     fun getReadData(num: Int): Board?
 
     fun updateHitCount(num: Int): Long
+
+    fun updateData(board: Board): Long
+
+    fun deleteData(num: Int): Long
 }

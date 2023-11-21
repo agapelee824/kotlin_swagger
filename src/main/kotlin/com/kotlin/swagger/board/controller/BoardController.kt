@@ -1,5 +1,7 @@
 package com.kotlin.swagger.board.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.node.ObjectNode
 import com.kotlin.swagger.board.dto.Board
 import com.kotlin.swagger.board.dto.BoardListReq
 import com.kotlin.swagger.board.service.BoardService
@@ -8,9 +10,10 @@ import com.kotlin.swagger.common.dto.BaseResponse
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.net.URLDecoder
+import java.net.URLEncoder
+
 
 @RequestMapping("/api/board")
 @RestController
@@ -22,24 +25,10 @@ class BoardController(private val boardService: BoardService) {
     @Parameter(name = "board", description = "게시판 객체")
     @PostMapping("/create")
     fun create(@RequestBody board: Board): BaseResponse<Any> {
-//        val dao = BoardDAO(conn)
-//
-//        //form은 Object로 넘어오기때문에 다운캐스팅
-//        val f: BoardForm = form as BoardForm //다운캐스팅
-//
-//
-//        f.setNum(dao.getMaxNum() + 1)
-//        f.setIpAddr(request.getRemoteAddr())
-        // 7개의 데이터를 넘겨주면 됨
-        // 7개의 데이터를 넘겨주면 됨
-//        dao.insertData(f)
-
-        /////////////////////////////
         log.info("create board!!!")
         board.num = boardService.getMaxNum() + 1
 
         val result = boardService.inserBoard(board)
-//
         return BaseResponse(data = result)
     }
 
@@ -154,8 +143,9 @@ class BoardController(private val boardService: BoardService) {
     }
 
     @Operation(summary = "게시판 글 보기", description = "")
+    @Parameter(name = "num", description = "게시판 번호")
     @GetMapping("/article")
-    fun article(num: Int): BaseResponse<Any> {
+    fun article(@PathVariable num: Int): BaseResponse<Any> {
 //        val num: Int = number
 //        String pageNum = request.getParameter("pageNum");
 
@@ -206,5 +196,55 @@ class BoardController(private val boardService: BoardService) {
 //        request.setAttribute("pageNum", pageNum);
 
         return BaseResponse(data = dto)
+    }
+
+    @Operation(summary = "게시판 수정", description = "")
+    @Parameter(name = "board", description = "게시판 객체")
+    @PostMapping("/update")
+    fun update(@RequestBody req: ObjectNode): BaseResponse<Any> {
+//        String pageNum = request.getParameter("pageNum");
+//
+//        String searchKey = request.getParameter("searchKey");
+//        String searchValue = request.getParameter("searchValue");
+
+        val mapper = ObjectMapper() // JSON을 Object화 하기 위한 Jackson ObjectMapper 이용
+
+        val board: Board = mapper.treeToValue(req.get("board"), Board::class.java)
+        val redirect: BoardListReq = mapper.treeToValue(req.get("redirect"), BoardListReq::class.java)
+
+        val f: Board = board
+
+        f.num = board.num
+
+        //수정된 데이터를 보낸다
+        val result = boardService.updateData(f);
+
+        // ---------------------------------------------------
+        //되돌아올때
+        var param: String = "&pageNum=" + redirect.pageNum;
+
+        if(redirect.searchValue != null && redirect.searchValue != "") {
+            param += "&searchKey=" + redirect.searchValue;
+            param += "&searchValue=" + URLEncoder.encode(redirect.searchValue, "UTF-8");
+        }
+
+//        request.setAttribute("params", param);
+//        request.setAttribute("pageNum", pageNum);
+//
+//        ActionForward af = new ActionForward();
+//        af.setRedirect(true);
+//        af.setPath("/board.do?method=list" + param);
+//
+//        return af;
+
+        return BaseResponse(data = result)
+    }
+
+    @Operation(summary = "게시판 삭제", description = "")
+    @Parameter(name = "num", description = "게시판 번호")
+    @DeleteMapping("/delete/{num}")
+    fun delete(@PathVariable num: Int): BaseResponse<Any> {
+        val result = boardService.deleteData(num);
+        return BaseResponse(data = result)
     }
 }

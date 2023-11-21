@@ -35,4 +35,19 @@
         set hit_count = hit_count + 1
         where num = #{num}
     </update>
+
+    <update id="updateData" parameterType="com.kotlin.swagger.board.dto.Board">
+        update BOARD
+        set NAME = #{name}
+        ,PWD = #{pwd}
+        ,EMAIL = #{email}
+        ,SUBJECT = #{subject}
+        ,CONTENT = #{content}
+        where NUM = #{num}
+    </update>
+
+    <delete id="deleteData">
+        delete from BOARD
+        where num = #{num}
+    </delete>
 </mapper>
